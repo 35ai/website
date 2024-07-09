@@ -14,12 +14,12 @@ jobs:
     steps:
     # 对应第2步，借助已有脚本拉取代码
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v4
       
     # 第3步的准备工作，先配置好node环境
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v4
       with:
-        node-version: '22.4.0'
+        node-version: '20'
 
     # 对应第3步，执行打包命令
     - name: 'Build'
