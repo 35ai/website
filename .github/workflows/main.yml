@@ -48,5 +48,5 @@ jobs:
         script: |
           whoami
           cd /home/35ai
-          /root/.nvm/versions/node/v22.4.0/bin/npm i
-          /root/.nvm/versions/node/v22.4.0/bin/pm2 reload 35ai
+          npm i
+          pm2 reload 35ai
