@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Providers } from "./providers";
+
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,12 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className='dark'>
       <body className={inter.className}>
-        {children}
-        <div className=" text-center p-4">
-          <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2022010315号-3</a>
-        </div>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
