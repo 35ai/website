@@ -1,17 +1,29 @@
-'use client'
+'use client';
 
 import { NextUIProvider } from '@nextui-org/react';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import Link from 'next/link';
+import Header from './header';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-    const router = useRouter();
+  const router = useRouter();
 
-    return (
-        <NextUIProvider navigate={router.push}>
-            {children}
-            <div className=" text-center p-4">
-                <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2022010315号-3</a>
-            </div>
-        </NextUIProvider>
-    )
+  return (
+    <NextUIProvider navigate={router.push}>
+      <NextThemesProvider attribute='class' defaultTheme='dark'>
+        <Header />
+        {children}
+        <div className='text-center p-4 bg-white dark:bg-black'>
+          <Link
+            href='https://beian.miit.gov.cn/'
+            className=' text-black dark:text-white'
+            target='_blank'
+          >
+            © 2024 35AI.com | 京ICP备2022010315号-3
+          </Link>
+        </div>
+      </NextThemesProvider>
+    </NextUIProvider>
+  );
 }
