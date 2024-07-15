@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import { Button, Input, Spinner } from '@nextui-org/react';
 import { useChat } from 'ai/react';
+import { UserMessage } from './components/user-message';
+import { AIMessage } from './components/ai-message';
 
 export default function Home() {
   const { isLoading, error, messages, input, handleInputChange, handleSubmit } =
@@ -16,38 +18,20 @@ export default function Home() {
   }, [error]);
 
   return (
-    <>
-      {messages.length === 0 && (
-        <div className=' mt-24 mb-24 flex flex-col justify-center items-center gap-4 bg-white text-black dark:text-white dark:bg-black'>
-          <div className=' text-center text-5xl'>Get your</div>
-          <div className=' relative'>
-            <div className='  text-center text-5xl md:ml-1 animate-text-gradient font-medium bg-clip-text text-transparent bg-[linear-gradient(45deg,#3b0ef2_0%,#8800d1_100%)] dark:bg-[45deg,#3b0ef2_0%,#8800d1_100%)]'>
-              AI Workflow Tools
-            </div>
-          </div>
-          <div className=' text-center text-5xl'>In Seconds</div>
-          <div className=' text-center text-2xl'>
-            Streamline Your Workflow with Our List of AI tools.
-          </div>
-          <div className=' text-center text-2xl'>
-            Find Your Perfect Solution.
-          </div>
-        </div>
-      )}
-      <div className=' bg-white dark:bg-black'>
-        {isLoading ? <Spinner /> : null}
+    <div className='h-[calc(100vh-64px)] flex flex-col'>
+      <div className=' bg-white dark:bg-black flex-1 p-2.5 gap-5 flex flex-col overflow-y-auto no-scrollbar'>
+        {/* {isLoading ? <Spinner /> : null} */}
         {error ? <div>{error.message}</div> : null}
         {messages.map((message) => (
           <div key={message.id}>
-            {message.role === 'user' ? 'User: ' : 'AI: '}
-            {message.content}
+            {message.role === 'user' ? <UserMessage message={message} ></UserMessage> : <AIMessage message={message} ></AIMessage>}
           </div>
         ))}
       </div>
-      {/* <div className=' bg-white dark:bg-black pb-2.5'>
+      <div className=' bg-white dark:bg-black pb-2.5'>
         <form
           onSubmit={handleSubmit}
-          className=' w-[600px] mx-auto relative bg-white dark:bg-black'
+          className=' mx-2.5 relative bg-white dark:bg-black'
         >
           <Input
             onChange={handleInputChange}
@@ -56,27 +40,27 @@ export default function Home() {
             name='prompt'
             isClearable
             radius='lg'
+            className='bg-gradient-to-r from-[#ff4593] from-10% via-[#ffe713] via-33%  to-[#17d7ff] to-100% overflow-hidden rounded-2xl p-0.5'
             classNames={{
               label: 'text-black/50 dark:text-white/90',
               input: [
                 'bg-transparent',
                 'text-black/90 dark:text-white/90',
-                'placeholder:text-default-700/50 dark:placeholder:text-white/60',
-                'pr-[144px]',
+                'placeholder:text-default-700/50 dark:placeholder:text-white/70',
               ],
               innerWrapper: 'bg-transparent',
               inputWrapper: [
                 'shadow-xl',
-                'bg-default-200/50',
-                'dark:bg-default/60',
+                'bg-transparent',
+                'dark:bg-black',
                 'backdrop-blur-xl',
                 'backdrop-saturate-200',
-                'hover:bg-default-200/70',
+                'hover:bg-default-200/90',
                 'dark:hover:bg-default/70',
                 'group-data-[focus=true]:bg-default-200/50',
                 'dark:group-data-[focus=true]:bg-default/60',
                 '!cursor-text',
-                'h-[70px]',
+                'h-[64px]',
               ],
             }}
             placeholder='Type to search...'
@@ -84,9 +68,9 @@ export default function Home() {
 
           <Button
             type='submit'
-            className=' absolute top-2.5 right-2.5 bg-[#7b0fff] text-lg h-[50px]'
+            className=' absolute top-2.5 right-2.5 text-white bg-black text-lg h-[50px]'
           >
-            Generate
+            Send
             <svg
               width='22'
               height='22'
@@ -109,7 +93,7 @@ export default function Home() {
             </svg>
           </Button>
         </form>
-      </div> */}
-    </>
+      </div>
+    </div>
   );
 }

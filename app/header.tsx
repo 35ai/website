@@ -15,6 +15,7 @@ import {
 } from './icons';
 import { Logo } from './logo';
 import { ThemeSwitcher } from './components/theme-switcher';
+import { Settings } from './components/settings';
 
 export default function Header() {
 
@@ -78,7 +79,7 @@ export default function Header() {
         >
           <NavbarItem isActive>
             <Link color='foreground' href='#'>
-              Home
+              Search
             </Link>
           </NavbarItem>
           {/* <NavbarItem>
@@ -126,6 +127,7 @@ export default function Header() {
           <Link href='https://github.com/35ai/website' target='_blank'>
             <GitHubIcon className='text-default-600 dark:text-default-500' />
           </Link>
+          <Settings />
           <ThemeSwitcher />
         </NavbarContent>
 
