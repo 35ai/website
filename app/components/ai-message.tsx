@@ -7,7 +7,7 @@ export function AIMessage({ message }: { message: Message }) {
       <div className=' rounded-full border-1 w-8 flex items-center justify-center h-8'>
         <AIIcon />
       </div>
-      <div className='flex-1 pt-1'>{message.id}{message.content}</div>
+      <div className='flex-1 pt-1'>{message.content}</div>
     </div>
   );
 }
