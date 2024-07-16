@@ -1,15 +1,23 @@
 'use client';
-import React, { useEffect } from 'react';
-import { Button, Input, Spinner } from '@nextui-org/react';
+import React, { useEffect, useRef } from 'react';
+import { Button, Input } from '@nextui-org/react';
 import { useChat } from 'ai/react';
 import { UserMessage } from './components/user-message';
 import { AIMessage } from './components/ai-message';
+import { StopIcon } from './icons';
 
 export default function Home() {
-  const { isLoading, error, messages, input, handleInputChange, handleSubmit } =
-    useChat({
-      api: 'api/chat',
-    });
+  const {
+    isLoading,
+    error,
+    stop,
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+  } = useChat({
+    api: 'api/chat',
+  });
 
   useEffect(() => {
     if (error) {
@@ -17,21 +25,44 @@ export default function Home() {
     }
   }, [error]);
 
+  const chatRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTo({
+        top: chatRef.current.offsetHeight,
+        behavior: "smooth",
+      })
+    }
+  }, [messages])
+ 
   return (
-    <div className='h-[calc(100vh-64px)] flex flex-col'>
-      <div className=' bg-white dark:bg-black flex-1 p-2.5 gap-5 flex flex-col overflow-y-auto no-scrollbar'>
-        {/* {isLoading ? <Spinner /> : null} */}
+    <div className='h-[calc(100vh-64px)] flex flex-col relative'>
+      <div ref={chatRef} className=' bg-white dark:bg-black flex-1 p-6 gap-6 flex flex-col overflow-y-auto no-scrollbar'>
         {error ? <div>{error.message}</div> : null}
         {messages.map((message) => (
           <div key={message.id}>
-            {message.role === 'user' ? <UserMessage message={message} ></UserMessage> : <AIMessage message={message} ></AIMessage>}
+            {message.role === 'user' ? (
+              <UserMessage message={message}></UserMessage>
+            ) : (
+              <AIMessage message={message}></AIMessage>
+            )}
           </div>
         ))}
       </div>
-      <div className=' bg-white dark:bg-black pb-2.5'>
+      {isLoading ? (
+        <div
+          className=' absolute bottom-28 left-1/2 bg-default/70 border-1 rounded-full px-5 py-1 flex items-center gap-2.5 -ml-[52px] cursor-pointer hover:bg-default'
+          onClick={stop}
+        >
+          <StopIcon />
+          <div>Stop</div>
+        </div>
+      ) : null}
+      <div className=' bg-white dark:bg-black pb-6'>
         <form
           onSubmit={handleSubmit}
-          className=' mx-2.5 relative bg-white dark:bg-black'
+          className=' mx-6 relative bg-white dark:bg-black'
         >
           <Input
             onChange={handleInputChange}
