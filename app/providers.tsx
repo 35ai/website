@@ -14,10 +14,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <NextThemesProvider attribute='class' defaultTheme='dark'>
         <Header />
         {children}
-        <div className='text-center p-4 bg-white dark:bg-black'>
+        <div className='text-center p-4'>
           <Link
             href='https://beian.miit.gov.cn/'
-            className=' text-black dark:text-white'
             target='_blank'
           >
             © 2024 35AI.com | 京ICP备2022010315号-3

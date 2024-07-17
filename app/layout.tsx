@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={` no-scrollbar dark ${outfit.className}`}>
+    <html lang='en' className={` no-scrollbar ${outfit.className}`}>
       <body className={`${outfit.className}`}>
         <Providers>{children}</Providers>
       </body>

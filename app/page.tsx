@@ -82,16 +82,17 @@ export default function Home() {
               innerWrapper: 'bg-transparent',
               inputWrapper: [
                 'shadow-xl',
-                'bg-transparent',
+                'bg-default',
                 'dark:bg-black',
                 'backdrop-blur-xl',
                 'backdrop-saturate-200',
                 'hover:bg-default-200/90',
                 'dark:hover:bg-default/70',
-                'group-data-[focus=true]:bg-default-200/50',
+                'group-data-[focus=true]:bg-default-200/90',
                 'dark:group-data-[focus=true]:bg-default/60',
                 '!cursor-text',
                 'h-[64px]',
+                'pr-[120px]'
               ],
             }}
             placeholder='Type to search...'
@@ -99,7 +100,7 @@ export default function Home() {
 
           <Button
             type='submit'
-            className=' absolute top-2.5 right-2.5 text-white bg-black text-lg h-[50px]'
+            className=' absolute top-2 right-2.5 text-white bg-black text-lg h-[50px]'
           >
             Send
             <svg
